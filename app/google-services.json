@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "597552483487",
+    "firebase_url": "https://myfirebaseauth-c5d09.firebaseio.com",
+    "project_id": "myfirebaseauth-c5d09",
+    "storage_bucket": "myfirebaseauth-c5d09.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:597552483487:android:73d08e79f03cd63a",
+        "android_client_info": {
+          "package_name": "co.com.jersongomez.firebaseauth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "597552483487-cp7oomo4sce7i03pdui0k99mdapbsb1e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBb9abAG5N5Xizh3CqyJ6f8RHxbECtOWPQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
