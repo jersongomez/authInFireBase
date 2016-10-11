@@ -1,6 +1,7 @@
 package co.com.jersongomez.firebaseauth;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +21,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private TextView textViewUserEmail;
     private Button buttonSalir;
 
+    private FirebaseAuth.AuthStateListener authStateListener;
     private DatabaseReference databaseReference;
     private EditText editTextNameFull, editTextAddress;
     private Button buttonSave;
@@ -38,6 +40,16 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         buttonSave = (Button) findViewById(R.id.btnAddProfile);
 
         FirebaseUser user = firebaseAuth.getCurrentUser();
+
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (firebaseAuth.getCurrentUser() == null) {
+                    finish();
+                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                }
+            }
+        };
 
         textViewUserEmail = (TextView) findViewById(R.id.textViewSalir);
         textViewUserEmail.setText("Bienvenido " + user.getEmail());
@@ -71,5 +83,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         if (v == buttonSave) {
             saveInformation();
         }
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        firebaseAuth.addAuthStateListener(authStateListener);
     }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_login"
     android:layout_width="match_parent"
@@ -53,6 +54,21 @@
             android:layout_height="wrap_content"
             android:text="No tienes cuenta? Registrate aqui"
             android:textAlignment="center" />
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/btnLoginGoogle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"></com.google.android.gms.common.SignInButton>
+
+        <Button
+            android:id="@+id/btnLoginTwitter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:background="@android:color/holo_blue_dark"
+            android:text="Twitter"
+            android:textColor="@android:color/white" />
 
     </LinearLayout>
 
