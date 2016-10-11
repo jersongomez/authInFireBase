@@ -25,11 +25,31 @@
             android:text="Usuario Logeado"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <Button
-            android:id="@+id/btnSalir"
+        <EditText
+            android:id="@+id/editTextNameFull"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
+            android:layout_margin="5dp"
+            android:hint="Ingrese nombre" />
+
+        <EditText
+            android:id="@+id/editTextAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:hint="Ingrese dirección" />
+
+        <Button
+            android:id="@+id/btnAddProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Actualizar información" />
+
+        <Button
+            android:id="@+id/btnSalir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="Salir" />
 
 
