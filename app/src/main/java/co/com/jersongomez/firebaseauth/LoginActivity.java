@@ -26,6 +26,8 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.TwitterAuthCredential;
+import com.google.firebase.auth.TwitterAuthProvider;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private Button buttonSignIn;
@@ -38,9 +40,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private static final int RC_SIGN_IN = 1;
     private static final String TAG = "LoginActivity";
+    private static final String TWITTER_KEY = "280191916-IKa8zOrGpgvzBfr0VfLy42C0KJBnMfooXPUU37Qe";
+    private static final String TWITTER_SECRET = "UWgZMwBIbWLRFpzfz0Dux6wWaggrzdqghAkQLjrcUGEcC";
 
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth.AuthStateListener authStateListener;
+
+
+    private Button signInTwitterButton;
+
+    private AuthCredential authCredential;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +62,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         textViewSignUp = (TextView) findViewById(R.id.textViewSignUp);
 
         signInButton = (SignInButton) findViewById(R.id.btnLoginGoogle);
+        signInTwitterButton = (Button) findViewById(R.id.btnLoginTwitter);
 
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -89,6 +99,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         buttonSignIn.setOnClickListener(this);
         textViewSignUp.setOnClickListener(this);
         signInButton.setOnClickListener(this);
+        signInTwitterButton.setOnClickListener(this);
     }
 
     private void signIn() {
@@ -172,10 +183,35 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onStart() {
         super.onStart();
-
         firebaseAuth.addAuthStateListener(authStateListener);
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (authStateListener != null) {
+            firebaseAuth.removeAuthStateListener(authStateListener);
+        }
+    }
+
+    private void userLoginTwitter() {
+        authCredential = TwitterAuthProvider.getCredential(TWITTER_KEY, TWITTER_SECRET);
+        firebaseAuth.signInWithCredential(authCredential)
+                .addOnCompleteListener(this, new OnCompleteListener() {
+                    @Override
+                    public void onComplete(@NonNull Task task) {
+                        Toast.makeText(LoginActivity.this, "Authentication failed." + task.isSuccessful(),
+                                Toast.LENGTH_SHORT).show();
+
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "signInWithCredential", task.getException());
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+    }
 
     @Override
     public void onClick(View v) {
@@ -190,6 +226,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if (v == signInButton) {
             signIn();
+        }
+
+        if (v == signInTwitterButton) {
+            userLoginTwitter();
         }
 
     }
